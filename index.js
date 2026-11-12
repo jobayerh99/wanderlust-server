@@ -49,8 +49,18 @@ app.get('/destination/:id', async(req, res) => {
     res.send(result)
 })
 
+app.patch('/destination/:id', async (req, res) => {
+    const { id } = req.params;
+    const data = req.body;
+    const result = await destinationCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: data }
+    );
+    res.send(result);
+});
+
 app.get('/', (req, res) => {
-    res.send({ message: 'Server is running fine!' })
+    res.send({ message:'Server is running fine!' })
 })
 
 app.listen(PORT, () => {
